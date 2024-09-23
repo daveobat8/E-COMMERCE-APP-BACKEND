@@ -14,28 +14,29 @@ class User(db.Model):
     email= db.Column(db.String(120), unique=True, nullable=False)
     first_name= db.Column(db.String(20), nullable=False)
     last_name= db.Column(db.String(20), nullable=False)
-    password_hash= db.Column(db.String(50), nullable=False)
+    password= db.Column(db.String(50), nullable=False)
     is_admin= db.Column(db.Boolean, default=False)
     #one to many relationship between users and order
     orders= db.relationship('Order', backref= 'user', lazy=True)
     shopping_cart = db.relationship('ShoppingCart', backref='user', uselist=False, lazy=True)
     addresses= db.relationship('Address', backref= 'user', lazy=True)
-    reviews = db.relationship('Review', backref='product', lazy=True)
+    reviews = db.relationship('Review', backref='user', lazy=True)
 
 class Product(db.Model):
-    __tablename__= 'products'
+    __tablename__ = 'products'
 
-    id= db.Column(db.Integer, primary_key=True)
-    name= db.Column(db.String(100), nullable=False)
-    description= db.Column(db.Text, nullable=False)
-    price= db.Column(db.Float, nullable=False)
-    stock= db.Column(db.Integer, nullable=False)
-    image_url=db.Column(db.String(255))
-    category_id= db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    stock = db.Column(db.Integer, nullable=False)
+    image_url = db.Column(db.String(255))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
 
     order_items = db.relationship('OrderItem', backref='product', lazy=True)
-    cart_items = db.relationship('CartItem', backref='product', lazy=True)
-    reviews = db.relationship('Review', backref='product', lazy=True)
+    cart_items = db.relationship('CartItem', back_populates='product_item', lazy=True)
+    reviews = db.relationship('Review', back_populates='product', lazy=True)
+
 
 class Category(db.Model):
     __tablename__= 'categories'
@@ -61,28 +62,29 @@ class OrderItem(db.Model):
     __tablename__= 'order_items'
 
     id= db.Column(db.Integer, primary_key=True)
-    quantity= db.Colum(db.Integer, nullable=False)
-    quantity= db.Colum(db.Float, nullable=False)
+    quantity= db.Column(db.Float, nullable=False)
     order_id= db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
 
 class ShoppingCart(db.Model):
-    __tablename__= 'shopping_carts'
+    __tablename__ = 'shopping_carts'
 
-    id= db.Column(db.Integer, primary_key=True)
-    user_id= db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    items= db.relationship('CartItem', backref='cart', lazy=True)
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    items = db.relationship('CartItem', back_populates='shopping_cart', lazy=True)
+
 
 class CartItem(db.Model):
-    __tablename__= 'cart_items'
+    __tablename__ = 'cart_items'
 
-    id= db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     cart_id = db.Column(db.Integer, db.ForeignKey('shopping_carts.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
 
-    cart = db.relationship('ShoppingCart', backref='cart_items', lazy=True)  
-    product = db.relationship('Product', backref='cart_items', lazy=True)
+    shopping_cart = db.relationship('ShoppingCart', back_populates='items')
+    product_item = db.relationship('Product', back_populates='cart_items')
+
 
 class Address(db.Model):
     __tablename__ = 'addresses'
@@ -112,5 +114,6 @@ class Review(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     rating = db.Column(db.Integer, nullable=False)  # 1 to 5 stars
-    comment = db.Column(db.Text, nullable=True)
+    product_review = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    product = db.relationship('Product', back_populates='reviews')
