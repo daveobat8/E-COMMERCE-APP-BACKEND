@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Enum
+from flask_bcrypt import check_password_hash
 
 import datetime
 
@@ -21,6 +22,9 @@ class User(db.Model):
     shopping_cart = db.relationship('ShoppingCart', backref='user', uselist=False, lazy=True)
     addresses= db.relationship('Address', backref= 'user', lazy=True)
     reviews = db.relationship('Review', backref='user', lazy=True)
+
+    def check_password(self,plain_password):
+        return check_password_hash(self.password,plain_password)
 
 class Product(db.Model):
     __tablename__ = 'products'

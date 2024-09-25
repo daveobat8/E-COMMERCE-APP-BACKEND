@@ -12,12 +12,12 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
 
     _links = ma.Hyperlinks(
         {
-            "self": ma.URLFor("user_by_id", values=dict(id="<id>")),
-            "collection": ma.URLFor("user_list"),
+            "self": ma.URLFor("user_login", values=dict(id="<id>")),
+            "collection": ma.URLFor("user_login"),
         }
     )
 
-user_schema= UserSchema
+user_schema= UserSchema()
 users_schema= UserSchema(many=True)
 
 class ProductSchema(ma.SQLAlchemyAutoSchema):
