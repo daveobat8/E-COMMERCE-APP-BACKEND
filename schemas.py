@@ -33,6 +33,9 @@ class ProductSchema(ma.SQLAlchemyAutoSchema):
         }
     )
 
+product_schema= ProductSchema()
+products_schema= ProductSchema(many=True)
+
 class OrderItemSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= OrderItem

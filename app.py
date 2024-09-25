@@ -11,6 +11,7 @@ from schemas import ma
 from models import db
 
 from resources.user import bcrypt,jwt, User_Signup, User_Login, User_by_id, User_list
+from resources.product import Product_list, Products_by_id
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///e_commerce.db'
@@ -38,6 +39,10 @@ def index():
 
 api.add_resource(User_Signup, '/signup')
 api.add_resource(User_Login, '/login')
+
+api.add_resource(Product_list, '/products')
+api.add_resource(Products_by_id, '/products/<int:id>')
+
 
 
 if __name__ == '__main__':
