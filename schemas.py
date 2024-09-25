@@ -154,3 +154,7 @@ class AddressSchema(ma.SQLAlchemyAutoSchema):
             "collection": ma.URLFor("address_list"),
         }
     )
+
+
+address_schema= AddressSchema()
+addresses_schema= AddressSchema(many=  True)

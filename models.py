@@ -97,8 +97,7 @@ class Address(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     street = db.Column(db.String(100), nullable=False)
     city = db.Column(db.String(50), nullable=False)
-    state = db.Column(db.String(50), nullable=False)
-    zip_code = db.Column(db.String(10), nullable=False)
+    county = db.Column(db.String(50), nullable=False)
     country = db.Column(db.String(50), nullable=False)
 
 class Payment(db.Model):
