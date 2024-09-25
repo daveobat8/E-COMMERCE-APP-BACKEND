@@ -129,6 +129,9 @@ class ReviewSchema(ma.SQLAlchemyAutoSchema):
         }
     )
 
+review_schema= ReviewSchema()
+reviews_schema= ReviewSchema(many= True)
+
 class PaymentSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Payment

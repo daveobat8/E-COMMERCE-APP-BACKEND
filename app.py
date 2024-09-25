@@ -19,6 +19,7 @@ from resources.shopping_cart import ShoppingCart_list, ShoppingCart_by_id
 from resources.cart_item import CartItem_list, CartItem_by_id
 from resources.address import Address_list, Address_by_id
 from resources.payment import Payment_list, Payment_by_id
+from resources.review import Review_list, Review_by_id
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///e_commerce.db'
@@ -71,6 +72,9 @@ api.add_resource(Address_by_id, '/addresses/<int:id>')
 
 api.add_resource(Payment_list, '/payments')
 api.add_resource(Payment_by_id, '/payments/<int:id>')
+
+api.add_resource(Review_list, '/reviews')
+api.add_resource(Review_by_id, '/reviews/<int:id>')
 
 
 if __name__ == '__main__':
