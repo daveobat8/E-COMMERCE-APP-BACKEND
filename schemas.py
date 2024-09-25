@@ -81,6 +81,9 @@ class ShoppingCartSchema(ma.SQLAlchemyAutoSchema):
         }
     )
 
+shoppingcart_schema= ShoppingCartSchema()
+shoppingcarts_schema= ShoppingCartSchema(many= True)
+
 class CartItemSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= CartItem
