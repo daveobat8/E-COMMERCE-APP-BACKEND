@@ -97,6 +97,10 @@ class CartItemSchema(ma.SQLAlchemyAutoSchema):
         }
     )
 
+cartitem_schema= CartItemSchema()
+cartitems_schema= CartItemSchema(many= True)
+
+
 class CategorySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Category

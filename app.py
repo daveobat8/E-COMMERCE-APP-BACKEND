@@ -16,6 +16,7 @@ from resources.category import Category_list, Category_by_id
 from resources.order import Order_list, Order_by_id
 from resources.order_item import Order_item_list, Order_item_by_id
 from resources.shopping_cart import ShoppingCart_list, ShoppingCart_by_id
+from resources.cart_item import CartItem_list, CartItem_by_id
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///e_commerce.db'
@@ -58,6 +59,9 @@ api.add_resource(Order_item_by_id, 'order_items/<int:id>')
 
 api.add_resource(ShoppingCart_list, '/shoppingcarts')
 api.add_resource(ShoppingCart_by_id, '/shoppingcarts/<int:id>')
+
+api.add_resource(CartItem_list,'/cart_items')
+api.add_resource(CartItem_by_id,'/cart_items/<int:id>')
 
 
 
