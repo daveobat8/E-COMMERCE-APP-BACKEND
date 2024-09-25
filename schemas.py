@@ -62,6 +62,9 @@ class OrderSchema(ma.SQLAlchemyAutoSchema):
         }
     )
 
+order_schema= OrderSchema()
+orders_schema= OrderSchema(many= True)
+
 class ShoppingCartSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= ShoppingCart
