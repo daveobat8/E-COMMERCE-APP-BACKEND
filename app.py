@@ -23,6 +23,7 @@ from resources.review import Review_list, Review_by_id
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///e_commerce.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 
@@ -57,8 +58,8 @@ api.add_resource(Category_by_id, '/category/<int:id>')
 api.add_resource(Order_list, '/orders')
 api.add_resource(Order_by_id, '/orders/<int:id>')
 
-api.add_resource(Order_item_list, 'order_items')
-api.add_resource(Order_item_by_id, 'order_items/<int:id>')
+api.add_resource(Order_item_list, '/order_items')
+api.add_resource(Order_item_by_id, '/order_items/<int:id>')
 
 api.add_resource(ShoppingCart_list, '/shoppingcarts')
 api.add_resource(ShoppingCart_by_id, '/shoppingcarts/<int:id>')
