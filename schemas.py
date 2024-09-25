@@ -142,6 +142,9 @@ class PaymentSchema(ma.SQLAlchemyAutoSchema):
         }
     )
 
+payment_schema= PaymentSchema()
+payments_schema= PaymentSchema(many= True)
+
 class AddressSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Address
