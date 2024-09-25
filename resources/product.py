@@ -13,6 +13,7 @@ class Product_list(Resource):
     parser.add_argument('price', required= True, help= "price is required")
     parser.add_argument('stock', required= True, help= "stock is required")
     parser.add_argument('image_url', required= True, help= "image_url is required")
+    parser.add_argument('category_id', required= True, help= "category_id is required")
 
     #requests
     def get(self):
@@ -38,7 +39,7 @@ class Product_list(Resource):
         return response
 
 
-class Products_by_id(Resource):
+class Product_by_id(Resource):
     #requests
     def get(self, id):
         #query the db and return one product by its ID
@@ -88,7 +89,7 @@ class Products_by_id(Resource):
 
         response_body= {
             "delete_successful": True,
-            "message": "Product ${id} deleted successfully"
+            "message": "Product data deleted successfully"
         }
 
         response= make_response(

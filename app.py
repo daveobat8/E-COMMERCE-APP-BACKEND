@@ -11,7 +11,8 @@ from schemas import ma
 from models import db
 
 from resources.user import bcrypt,jwt, User_Signup, User_Login, User_by_id, User_list
-from resources.product import Product_list, Products_by_id
+from resources.product import Product_list, Product_by_id
+from resources.category import Category_list, Category_by_id
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///e_commerce.db'
@@ -41,7 +42,10 @@ api.add_resource(User_Signup, '/signup')
 api.add_resource(User_Login, '/login')
 
 api.add_resource(Product_list, '/products')
-api.add_resource(Products_by_id, '/products/<int:id>')
+api.add_resource(Product_by_id, '/products/<int:id>')
+
+api.add_resource(Category_list, '/category')
+api.add_resource(Category_by_id, '/category/<int:id>')
 
 
 
