@@ -49,6 +49,9 @@ class OrderItemSchema(ma.SQLAlchemyAutoSchema):
         }
     )
 
+order_item_schema= OrderItemSchema()
+order_items_schema= OrderItemSchema(many= True)
+
 class OrderSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Order
