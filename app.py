@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -37,6 +38,8 @@ api=Api(app)
 
 bcrypt.init_app(app)
 jwt.init_app(app)
+
+CORS(app)
 
 
 @app.route("/")
