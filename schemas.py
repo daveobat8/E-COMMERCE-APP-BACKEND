@@ -1,6 +1,7 @@
 from models import User, Product, Order, OrderItem, ShoppingCart, CartItem, Category, Address, Review, Payment
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema  # type: ignore
+from marshmallow import fields
 
 
 ma= Marshmallow()
@@ -92,7 +93,7 @@ class CartItemSchema(ma.SQLAlchemyAutoSchema):
 
     _links = ma.Hyperlinks(
         {
-            "self": ma.URLFor("cart_item_by_id", values=dict(id="<id>")),
+             "self": ma.URLFor("cart_item_by_id", values=dict(id="<id>")),
             "collection": ma.URLFor("cart_item_list"),
         }
     )
@@ -105,6 +106,9 @@ class CategorySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Category
         load_instance= True
+        include_fk= True
+
+    products =fields.Nested(ProductSchema, many=True)
 
     _links = ma.Hyperlinks(
         {

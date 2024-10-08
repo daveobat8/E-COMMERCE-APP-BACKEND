@@ -5,23 +5,23 @@ from flask import make_response, jsonify, request
 from models import CartItem, db
 from schemas import CartItemSchema, cartitem_schema, cartitems_schema
 
-class CartItem_list(Resource):
+class Cart_Item_list(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('cart_id', type=int, required=True, help="Cart ID is required")
+    # parser.add_argument('cart_id', type=int, required=True, help="Cart ID is required")
     parser.add_argument('product_id', type=int, required=True, help="Product ID is required")
     parser.add_argument('quantity', type=int, required=True, help="Quantity is required")
 
     def get(self):
-        cartitems= CartItem.query.all()
+        cart_items= CartItem.query.all()
 
         response= make_response(
-            cartitems_schema.dump(cartitems), 200
+            cartitems_schema.dump(cart_items), 200
         )
 
         return response
     
     def post(self):
-        data= CartItem_list.parser.parse_args()
+        data= Cart_Item_list.parser.parse_args()
         new_cartitem= CartItem(**data)
 
         db.session.add(new_cartitem)

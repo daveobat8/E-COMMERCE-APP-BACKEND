@@ -10,12 +10,15 @@ class Category_list(Resource):
     parser.add_argument('name', required= True, help="name is required")
 
     def get(self):
-        categories= Category.query.all()
+        categories = Category.query.all()
 
-        response= make_response(
-            categories_schema.dump(categories)
-        )
+        # For each category, we add a field for the product count
+        result = categories_schema.dump(categories)
 
+        for category in result:
+            category['product_count'] = len(category['products'])  # Add product count
+
+        response = make_response(result, 200)
         return response
     
     def post(self):
@@ -34,21 +37,21 @@ class Category_list(Resource):
 
 class Category_by_id(Resource):
     def get(self, id):
-        category= Category.query.filter_by(id=id).first()
+        category = Category.query.filter_by(id=id).first()
 
-        if category == None:
-            response_body= {
-                "error":"category does not exist"
+        if category is None:
+            response_body = {
+                "error": "category does not exist"
             }
-            response= make_response(
+            response = make_response(
                 jsonify(response_body), 404
             )
             return response
         else:
-            response= make_response(
-                category_schema.dump(category), 200
-            )
+            result = category_schema.dump(category)
+            result['product_count'] = len(result['products'])  # Add product count
 
+            response = make_response(result, 200)
             return response
         
     def patch(self, id):

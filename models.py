@@ -75,18 +75,18 @@ class ShoppingCart(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    items = db.relationship('CartItem', back_populates='shopping_cart', lazy=True)
+    # items = db.relationship('CartItem', back_populates='shopping_cart', lazy=True)
 
 
 class CartItem(db.Model):
     __tablename__ = 'cart_items'
 
     id = db.Column(db.Integer, primary_key=True)
-    cart_id = db.Column(db.Integer, db.ForeignKey('shopping_carts.id'), nullable=False)
+    # cart_id = db.Column(db.Integer, db.ForeignKey('shopping_carts.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
 
-    shopping_cart = db.relationship('ShoppingCart', back_populates='items')
+    # shopping_cart = db.relationship('ShoppingCart', back_populates='items')
     product_item = db.relationship('Product', back_populates='cart_items')
 
 

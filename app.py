@@ -17,7 +17,7 @@ from resources.category import Category_list, Category_by_id
 from resources.order import Order_list, Order_by_id
 from resources.order_item import Order_item_list, Order_item_by_id
 from resources.shopping_cart import ShoppingCart_list, ShoppingCart_by_id
-from resources.cart_item import CartItem_list, CartItem_by_id
+from resources.cart_item import Cart_Item_list, CartItem_by_id
 from resources.address import Address_list, Address_by_id
 from resources.payment import Payment_list, Payment_by_id
 from resources.review import Review_list, Review_by_id
@@ -67,7 +67,7 @@ api.add_resource(Order_item_by_id, '/order_items/<int:id>')
 api.add_resource(ShoppingCart_list, '/shoppingcarts')
 api.add_resource(ShoppingCart_by_id, '/shoppingcarts/<int:id>')
 
-api.add_resource(CartItem_list,'/cart_items')
+api.add_resource(Cart_Item_list,'/cart_items')
 api.add_resource(CartItem_by_id,'/cart_items/<int:id>')
 
 api.add_resource(Address_list, '/addresses')
